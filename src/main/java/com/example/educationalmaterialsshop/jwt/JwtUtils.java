@@ -1,6 +1,6 @@
 package com.example.educationalmaterialsshop.jwt;
 
-import com.example.educationalmaterialsshop.model.entity.UserEntity;
+import com.example.educationalmaterialsshop.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +16,7 @@ public class JwtUtils {
     private final static long expirationTimeOfRefreshToken = 7200000;
 
     public  synchronized String generateAccessToken(
-            UserEntity userDetails
+            User userDetails
     ) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, jwtAccessKey)
@@ -26,7 +26,7 @@ public class JwtUtils {
                 .claim("authorities", userDetails.getAuthorities())
                 .compact();
     }public  synchronized String generateRefreshToken(
-            UserEntity userDetails
+            User userDetails
     ) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, jwtRefreshKey)

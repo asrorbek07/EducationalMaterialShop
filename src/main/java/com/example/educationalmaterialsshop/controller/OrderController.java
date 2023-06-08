@@ -51,7 +51,7 @@ public class OrderController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('UPDATE')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('UPDATE')")
     public OrderResponse update(
             @PathVariable int id,
             @RequestBody OrderUpdateRequest updateRequest

@@ -1,6 +1,7 @@
 package com.example.educationalmaterialsshop.model.payload.request;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -13,6 +14,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderCreateRequest {
     int customerId;
-    @NotEmpty
+    @NotNull
     List<OrderItemRequest> orderItems;
 }

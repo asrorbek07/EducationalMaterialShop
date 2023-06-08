@@ -4,6 +4,8 @@ import com.example.educationalmaterialsshop.model.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -18,7 +20,8 @@ public class Order extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     User customer;
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @Fetch(FetchMode.SUBSELECT)
     List<OrderItem> orderItems;
     @Enumerated(EnumType.STRING)
     OrderStatus status;

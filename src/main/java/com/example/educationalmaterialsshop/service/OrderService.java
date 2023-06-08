@@ -18,7 +18,9 @@ import com.example.educationalmaterialsshop.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -30,15 +32,13 @@ public class OrderService {
     private final Validator validator;
 
     public Order create(OrderCreateRequest orderRequest) {
-        int customerId = orderRequest.getCustomerId();
-        User user = getUser(customerId);
+        User user = getUser(orderRequest.getCustomerId());
         Order newOrder = Order.builder()
                 .customer(user)
+                .status(OrderStatus.PENDING)
+                .orderItems(getItems(orderRequest.getOrderItems()))
                 .build();
-        Order order = orderRepository.save(newOrder);
-        List<OrderItemRequest> orderItems = orderRequest.getOrderItems();
-        orderItems.forEach(item ->saveItem(item, order));
-        return order;
+        return orderRepository.save(newOrder);
     }
 
     public Order get(int id) {
@@ -91,22 +91,21 @@ public class OrderService {
         );
     }
 
-    private void saveItem(OrderItemRequest item, Order order) {
-        validator.validateItem(item);
-        Product product = getProduct(item.getProductId());
-        OrderItem orderItem = OrderConverter.convertToEntity(item);
-        orderItem.setProduct(product);
-        double price = orderItem.getQuantity() * product.getPrice();
-        orderItem.setPrice(price);
-        orderItem.setOrder(order);
-        itemRepository.save(orderItem);
-    }
-
     private User getUser(int id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new RecordNotFountException(String.format(
                         "User with id - '%s' cannot be found", id
                 ))
         );
+    }
+
+    private List<OrderItem> getItems(List<OrderItemRequest> itemRequests){
+        return itemRequests.stream().map(
+                (item)-> {
+                    OrderItem orderItem = OrderConverter.convertToEntity(item);
+                    orderItem.setProduct(getProduct(item.getProductId()));
+                    return orderItem;
+                }
+        ).toList();
     }
 }

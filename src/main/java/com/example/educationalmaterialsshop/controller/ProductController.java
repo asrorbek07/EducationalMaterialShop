@@ -23,7 +23,7 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('CREATE')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('CREATE')")
     public ProductResponse create(
             @RequestBody ProductCreateRequest createRequest
     ){
@@ -54,7 +54,7 @@ public class ProductController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('UPDATE')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('UPDATE')")
     public ProductResponse update(
             @PathVariable int id,
             @RequestBody ProductUpdateRequest updateRequest
@@ -67,7 +67,7 @@ public class ProductController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('DELETE')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('DELETE')")
     public void delete(
             @PathVariable int id
     ){

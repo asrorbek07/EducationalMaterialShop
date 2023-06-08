@@ -23,7 +23,7 @@ public class CategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('CREATE')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('CREATE')")
     public CategoryResponse create(
             @RequestBody CategoryCreateRequest createRequest
     ){
@@ -51,7 +51,7 @@ public class CategoryController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('UPDATE')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('UPDATE')")
     public CategoryResponse update(
             @PathVariable int id,
             @RequestBody CategoryUpdateRequest updateRequest
@@ -63,7 +63,7 @@ public class CategoryController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('DELETE')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('DELETE')")
     public void delete(
             @PathVariable int id
     ){

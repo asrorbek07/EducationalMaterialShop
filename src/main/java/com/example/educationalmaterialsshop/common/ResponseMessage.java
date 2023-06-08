@@ -11,7 +11,7 @@ public enum ResponseMessage {
     ERROR_ROLE_NOT_FOUND("role not fount"),
     ERROR_PERMISSION_NOT_FOUND("permission not fount");
 
-    private String message;
+    private final String message;
     ResponseMessage(String message) {
         this.message = message;
     }

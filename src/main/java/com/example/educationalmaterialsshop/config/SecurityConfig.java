@@ -25,12 +25,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
-public class securityConfig {
+public class SecurityConfig {
     private  final AuthenticationService authenticationService;
     private final JwtFilter jwtFilter;
 
     private static final String[] WHITE_LIST= new String[]{
-            "/api/auth/**"
+            "/**"
     };
 
     @Bean
@@ -44,8 +44,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
         httpSecurity.csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST,"/api/auth/register").permitAll()
-                .requestMatchers(HttpMethod.GET,"/api/auth/login").permitAll()
+                .requestMatchers(WHITE_LIST).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

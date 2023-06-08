@@ -1,41 +1,73 @@
 package com.example.educationalmaterialsshop.controller;
 
-import com.example.educationalmaterialsshop.model.dto.request.CategoryRequest;
-import com.example.educationalmaterialsshop.model.dto.response.ApiResponse;
-import com.example.educationalmaterialsshop.service.BaseService;
+import com.example.educationalmaterialsshop.controller.converter.CategoryConverter;
+import com.example.educationalmaterialsshop.model.entity.Category;
+import com.example.educationalmaterialsshop.model.payload.request.CategoryCreateRequest;
+import com.example.educationalmaterialsshop.model.payload.request.CategoryUpdateRequest;
+import com.example.educationalmaterialsshop.model.payload.response.CategoryResponse;
 import com.example.educationalmaterialsshop.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@EnableMethodSecurity
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/category/")
-public class CategoryController implements BaseService<CategoryRequest, ApiResponse> {
+public class CategoryController {
     private final CategoryService categoryService;
 
-    @Override
-    public ApiResponse create(CategoryRequest categoryRequest) {
-        return null;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('CREATE')")
+    public CategoryResponse create(
+            @RequestBody CategoryCreateRequest createRequest
+    ){
+        Category newCategory = CategoryConverter.convertToEntity(createRequest);
+        Category category = categoryService.create(newCategory);
+        return CategoryConverter.from(category);
     }
 
-    @Override
-    public ApiResponse get(Integer id) {
-        return null;
+    @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryResponse get(
+            @PathVariable int id
+    ){
+        Category category = categoryService.get(id);
+        return CategoryConverter.from(category);
     }
 
-    @Override
-    public ApiResponse getAll() {
-        return null;
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<CategoryResponse> get(){
+        List<Category> categories = categoryService.getAll();
+        return CategoryConverter.from(categories);
     }
 
-    @Override
-    public ApiResponse update(CategoryRequest categoryRequest, Integer id) {
-        return null;
+
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('UPDATE')")
+    public CategoryResponse update(
+            @PathVariable int id,
+            @RequestBody CategoryUpdateRequest updateRequest
+    ){
+        Category updatedCategory = CategoryConverter.convertToEntity(updateRequest);
+        Category category = categoryService.update(id,updatedCategory);
+        return CategoryConverter.from(category);
     }
 
-    @Override
-    public ApiResponse delete(Integer id) {
-        return null;
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') and hasAuthority('DELETE')")
+    public void delete(
+            @PathVariable int id
+    ){
+        categoryService.delete(id);
     }
+
 }

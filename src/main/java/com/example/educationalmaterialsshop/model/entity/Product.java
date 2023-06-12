@@ -19,7 +19,7 @@ public class Product extends BaseEntity{
     @Column(nullable = false)
     String description;
     int quantity;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
 //    @Digits(integer = 13, fraction = 0)
     int isbn;
     @ManyToOne(fetch = FetchType.LAZY)

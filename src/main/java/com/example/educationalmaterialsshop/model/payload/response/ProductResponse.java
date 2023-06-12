@@ -16,5 +16,5 @@ public class ProductResponse extends BaseResponse {
     double price;
     String description;
     int quantity;
-    int ISBN;
+    int isbn;
 }

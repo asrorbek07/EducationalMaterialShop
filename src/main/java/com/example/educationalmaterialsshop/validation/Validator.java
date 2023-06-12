@@ -72,8 +72,8 @@ public class Validator {
         int quantity = product.getQuantity();
         if(quantity<=0)
             throwIfInvalid("quantity",quantity);
-        int ISBN = product.getISBN();
-        exists = productRepository.existsByISBN(ISBN);
+        int ISBN = product.getIsbn();
+        exists = productRepository.existsByIsbn(ISBN);
         if(exists)
             throwIfExists("ISBN",ISBN);
 

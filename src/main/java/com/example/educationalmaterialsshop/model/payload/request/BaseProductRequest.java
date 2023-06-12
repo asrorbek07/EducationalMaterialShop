@@ -16,6 +16,6 @@ public class BaseProductRequest {
     @NotBlank
     String description;
     int quantity;
-    int ISBN;
+    int isbn;
     int categoryId;
 }

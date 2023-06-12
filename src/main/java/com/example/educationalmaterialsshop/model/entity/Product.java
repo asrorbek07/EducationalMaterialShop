@@ -21,7 +21,7 @@ public class Product extends BaseEntity{
     int quantity;
     @Column(nullable = false, unique = true)
 //    @Digits(integer = 13, fraction = 0)
-    int ISBN;
+    int isbn;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     Category category;

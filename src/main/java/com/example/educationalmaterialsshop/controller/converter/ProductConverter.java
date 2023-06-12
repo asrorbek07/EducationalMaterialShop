@@ -18,7 +18,7 @@ public class ProductConverter {
                 .price(product.getPrice())
                 .description(product.getDescription())
                 .quantity(product.getQuantity())
-                .ISBN(product.getISBN())
+                .isbn(product.getIsbn())
                 .build();
     }
 
@@ -32,7 +32,7 @@ public class ProductConverter {
                 .price(request.getPrice())
                 .description(request.getDescription())
                 .quantity(request.getQuantity())
-                .ISBN(request.getISBN())
+                .isbn(request.getIsbn())
                 .build();
     }
 }

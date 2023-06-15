@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @RequestMapping("/api/auth/")
 public class AuthController {
@@ -27,7 +28,7 @@ public class AuthController {
         return UserConverter.from(user);
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     @ResponseStatus(HttpStatus.OK)
     public JwtToken login(
             @RequestBody UserLoginRequest loginRequest

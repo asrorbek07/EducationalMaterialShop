@@ -1,4 +1,4 @@
-package com.example.educationalmaterialsshop.common.config;
+package com.example.educationalmaterialsshop.config;
 
 
 import com.example.educationalmaterialsshop.common.filter.JwtFilter;
@@ -20,6 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -33,15 +35,15 @@ public class SecurityConfig {
 public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
+    private static final String[] WHITE_LIST= new String[]{
+            "/**"
+    };
 @SneakyThrows
 @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
         httpSecurity.csrf().disable()
-                .cors().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST,"/api/auth/register").permitAll()
-                .requestMatchers(HttpMethod.GET,"/api/auth/login").permitAll()
+                .requestMatchers(WHITE_LIST).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

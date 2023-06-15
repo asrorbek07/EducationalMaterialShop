@@ -1,20 +1,22 @@
 package com.example.educationalmaterialsshop.model.payload.response;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-@EqualsAndHashCode(callSuper = true)
+import java.time.Instant;
+
 @Data
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductResponse extends BaseResponse {
+public class ProductResponse{
+    int id;
+    Instant date;
     String name;
-    double price;
+    double purchasePrice;
+    double sellingPrice;
     String description;
-    int quantity;
-    int isbn;
+    int allQuantity;
+    int currentQuantity;
 }

@@ -1,16 +1,11 @@
-package com.example.educationalmaterialsshop.validation;
+package com.example.educationalmaterialsshop.common.validation;
 
 import com.example.educationalmaterialsshop.common.exception.AlreadyExistsException;
-import com.example.educationalmaterialsshop.common.exception.RecordNotFountException;
-import com.example.educationalmaterialsshop.model.entity.Category;
 import com.example.educationalmaterialsshop.model.entity.Product;
 import com.example.educationalmaterialsshop.model.entity.User;
-import com.example.educationalmaterialsshop.model.payload.request.OrderItemRequest;
-import com.example.educationalmaterialsshop.repository.CategoryRepository;
 import com.example.educationalmaterialsshop.repository.ProductRepository;
 import com.example.educationalmaterialsshop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.InvalidPropertyException;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -19,7 +14,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class Validator {
     private final UserRepository userRepository;
-    private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
     public void validateUser(User user){
         String username = user.getUsername();
@@ -43,35 +37,18 @@ public class Validator {
             throwIfExists("phone number",phoneNumber);
     }
 
-    public void validateCategory(Category category) {
-        String name = category.getName();
-        boolean exists = categoryRepository.existsByName(name);
-        if(exists)
-            throwIfExists("name",name);
-    }
-
-    public void validateCategory(Category category, int id) {
-        String name = category.getName();
-        boolean exists = categoryRepository.existsByNameAndIdNot(name, id);
-        if(exists)
-            throwIfExists("name",name);
-    }
-
-    public void validateProduct(Integer id,Product product) {
+    public void
+    validateProduct(Product product) {
         String name = product.getName();
-        boolean exists;
-        if(Objects.isNull(id))
-            exists = productRepository.existsByName(name);
-        else
-            exists = productRepository.existsByNameAndIdNot(name,id);
-        if(exists)
+        if( productRepository.existsByName(name))
             throwIfExists("name",name);
-        double price = product.getPrice();
-        if(price<=0)
-            throwIfInvalid("price",price);
-        int quantity = product.getQuantity();
-        if(quantity<=0)
-            throwIfInvalid("quantity",quantity);
+//        double purchasePrice = product.getPurchasePrice();
+//        double sellingPrice = product.getSellingPrice();
+//        if(purchasePrice<0||sellingPrice<0)
+//            throwIfInvalid("price",purchasePrice);
+//        int quantity = product.getFirstQuantity();
+//        if(quantity<0)
+//            throwIfInvalid("quantity",quantity);
 
     }
 
@@ -85,15 +62,4 @@ public class Validator {
                 "Record with %s - '%s' already exists",property,value));
     }
 
-    public void validateItem(OrderItemRequest item) {
-        int id = item.getProductId();
-        Product product = productRepository.findById(id).orElseThrow(
-                () -> new RecordNotFountException(String.format(
-                        "Record with id -'%s' cannot be found", id
-                ))
-        );
-        int quantity = item.getQuantity();
-        if(quantity> product.getQuantity())
-            throwIfInvalid("quantity",quantity);
-    }
 }

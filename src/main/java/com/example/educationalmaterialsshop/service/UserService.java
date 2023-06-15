@@ -3,7 +3,7 @@ package com.example.educationalmaterialsshop.service;
 
 import com.example.educationalmaterialsshop.common.ResponseMessage;
 import com.example.educationalmaterialsshop.common.exception.RecordNotFountException;
-import com.example.educationalmaterialsshop.jwt.JwtUtils;
+import com.example.educationalmaterialsshop.common.jwt.JwtUtils;
 import com.example.educationalmaterialsshop.model.payload.response.JwtToken;
 import com.example.educationalmaterialsshop.model.entity.Permission;
 import com.example.educationalmaterialsshop.model.entity.Role;
@@ -11,7 +11,7 @@ import com.example.educationalmaterialsshop.model.entity.User;
 import com.example.educationalmaterialsshop.repository.PermissionRepository;
 import com.example.educationalmaterialsshop.repository.RoleRepository;
 import com.example.educationalmaterialsshop.repository.UserRepository;
-import com.example.educationalmaterialsshop.validation.Validator;
+import com.example.educationalmaterialsshop.common.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

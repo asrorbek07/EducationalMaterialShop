@@ -2,7 +2,6 @@ package com.example.educationalmaterialsshop.controller.converter;
 
 import com.example.educationalmaterialsshop.model.entity.Product;
 import com.example.educationalmaterialsshop.model.payload.request.BaseProductRequest;
-import com.example.educationalmaterialsshop.model.payload.request.ProductCreateRequest;
 import com.example.educationalmaterialsshop.model.payload.response.ProductResponse;
 import lombok.experimental.UtilityClass;
 
@@ -15,10 +14,12 @@ public class ProductConverter {
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .price(product.getPrice())
+                .purchasePrice(product.getPurchasePrice())
+                .sellingPrice(product.getSellingPrice())
                 .description(product.getDescription())
-                .quantity(product.getQuantity())
-                .isbn(product.getIsbn())
+                .allQuantity(product.getAllQuantity())
+                .currentQuantity(product.getCurrentQuantity())
+                .date(product.getDate())
                 .build();
     }
 
@@ -29,10 +30,7 @@ public class ProductConverter {
     public Product convertToEntity(BaseProductRequest request) {
         return Product.builder()
                 .name(request.getName())
-                .price(request.getPrice())
                 .description(request.getDescription())
-                .quantity(request.getQuantity())
-                .isbn(request.getIsbn())
                 .build();
     }
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -20,5 +21,5 @@ public class UserResponse {
     List<String> permissionEntities;
     String phoneNumber;
     String address;
-    String postalCode;
+    Instant date;
 }

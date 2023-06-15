@@ -11,17 +11,17 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "orders")
+@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Order{
+public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     Instant date;
-    @ManyToOne
-    Product product;
-    int quantity;
-    double purchasePrice;
-    double sellingPrice;
-    double profit;
+    String fullName;
+    @Column(nullable = false, unique = true)
+    String phoneNumber;
+    @Column(nullable = false)
+    String address;
+    String company;
 }

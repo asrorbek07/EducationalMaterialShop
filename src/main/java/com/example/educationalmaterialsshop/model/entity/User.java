@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,6 +24,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    Instant date;
     @Column(unique = true, nullable = false)
     String username;
     @Column(nullable = false)
@@ -38,10 +40,6 @@ public class User implements UserDetails {
     String phoneNumber;
     @Column(nullable = false)
     String address;
-    @Column(nullable = false)
-    String postalCode;
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    List<Order> orders;
 
     public User(UserRegisterRequest userRegisterRequest) {
         this.username = userRegisterRequest.getUsername();
@@ -50,7 +48,6 @@ public class User implements UserDetails {
         this.lastName = userRegisterRequest.getLastName();
         this.phoneNumber = userRegisterRequest.getPhoneNumber();
         this.address = userRegisterRequest.getAddress();
-        this.postalCode = userRegisterRequest.getPostalCode();
     }
 
     @Override

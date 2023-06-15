@@ -1,4 +1,4 @@
-package com.example.educationalmaterialsshop.jwt;
+package com.example.educationalmaterialsshop.common.jwt;
 
 import com.example.educationalmaterialsshop.model.entity.User;
 import io.jsonwebtoken.Claims;
@@ -12,8 +12,8 @@ import java.util.Date;
 public class JwtUtils {
     private final static String jwtAccessKey = "thisIsTheSecretKey";
     private final static String jwtRefreshKey = "thisIsTheRefreshKey";
-    private final static long expirationTimeOfAccessToken = 3600000;
-    private final static long expirationTimeOfRefreshToken = 7200000;
+    private final static long expirationTimeOfAccessToken = 360000000;
+    private final static long expirationTimeOfRefreshToken = 720000000;
 
     public  synchronized String generateAccessToken(
             User userDetails

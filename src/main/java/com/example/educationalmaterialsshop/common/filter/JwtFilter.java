@@ -1,7 +1,7 @@
-package com.example.educationalmaterialsshop.filter;
+package com.example.educationalmaterialsshop.common.filter;
 
 
-import com.example.educationalmaterialsshop.jwt.JwtUtils;
+import com.example.educationalmaterialsshop.common.jwt.JwtUtils;
 import com.example.educationalmaterialsshop.model.entity.User;
 import com.example.educationalmaterialsshop.repository.UserRepository;
 import io.jsonwebtoken.Claims;

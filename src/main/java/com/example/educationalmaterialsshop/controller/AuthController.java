@@ -27,7 +27,7 @@ public class AuthController {
         return UserConverter.from(user);
     }
 
-    @PostMapping("login")
+    @GetMapping("login")
     @ResponseStatus(HttpStatus.OK)
     public JwtToken login(
             @RequestBody UserLoginRequest loginRequest

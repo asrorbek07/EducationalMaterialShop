@@ -1,9 +1,10 @@
 package com.example.educationalmaterialsshop.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -12,17 +13,17 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product extends BaseEntity{
+public class Product{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+    Instant date;
     @Column(unique = true,nullable = false)
     String name;
-    double price;
+    double purchasePrice;
+    double sellingPrice;
     @Column(nullable = false)
     String description;
-    int quantity;
-    @Column(nullable = false)
-//    @Digits(integer = 13, fraction = 0)
-    int isbn;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    Category category;
+    int allQuantity;
+    int currentQuantity;
 }

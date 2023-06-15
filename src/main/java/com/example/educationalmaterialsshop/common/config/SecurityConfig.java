@@ -1,7 +1,7 @@
-package com.example.educationalmaterialsshop.config;
+package com.example.educationalmaterialsshop.common.config;
 
 
-import com.example.educationalmaterialsshop.filter.JwtFilter;
+import com.example.educationalmaterialsshop.common.filter.JwtFilter;
 import com.example.educationalmaterialsshop.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -29,10 +29,6 @@ public class SecurityConfig {
     private  final AuthenticationService authenticationService;
     private final JwtFilter jwtFilter;
 
-    private static final String[] WHITE_LIST= new String[]{
-            "/**"
-    };
-
     @Bean
 public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -44,7 +40,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
         httpSecurity.csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(WHITE_LIST).permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/auth/register").permitAll()
+                .requestMatchers(HttpMethod.GET,"/api/auth/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

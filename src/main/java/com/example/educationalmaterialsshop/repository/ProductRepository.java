@@ -9,10 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer> {
-    Optional<List<Product>> findAllByCategory_Id(int id);
     boolean existsByName(String name);
-
-    boolean existsByIsbn(int isbn);
-
-    boolean existsByNameAndIdNot(String name, int id);
 }

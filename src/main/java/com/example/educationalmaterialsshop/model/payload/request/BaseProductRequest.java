@@ -12,10 +12,6 @@ import lombok.experimental.FieldDefaults;
 public class BaseProductRequest {
     @NotBlank
     String name;
-    double price;
     @NotBlank
     String description;
-    int quantity;
-    int isbn;
-    int categoryId;
 }

@@ -20,7 +20,6 @@ public class UserConverter {
                 .lastName(request.getLastName())
                 .phoneNumber(request.getPhoneNumber())
                 .address(request.getAddress())
-                .postalCode(request.getPostalCode())
                 .build();
     }
 
@@ -42,7 +41,7 @@ public class UserConverter {
                 .permissionEntities(getPermissions(user.getPermissionEntities()))
                 .phoneNumber(user.getPhoneNumber())
                 .address(user.getAddress())
-                .postalCode(user.getPostalCode())
+                .date(user.getDate())
                 .build();
     }
 
